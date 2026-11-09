@@ -1,0 +1,306 @@
+/* Filón · tokens
+   piedra   #E9EBE6  fondo
+   lamina   #F4F5F1  superficie de fila al pasar
+   roca     #D3D8D0  pista de la veta y reglas
+   basalto  #1E2630  texto y botón
+   pizarra  #56616C  texto secundario
+   veta     #D9A21B  dinero que queda (pirita)
+   oxido    #A8432A  bote casi agotado
+*/
+
+@font-face { font-family: 'Archivo'; font-weight: 400; font-display: swap; src: url('fuentes/archivo-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Archivo'; font-weight: 600; font-display: swap; src: url('fuentes/archivo-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Archivo'; font-weight: 700; font-display: swap; src: url('fuentes/archivo-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Big Shoulders Display'; font-weight: 800; font-display: swap; src: url('fuentes/big-shoulders-display-latin-800-normal.woff2') format('woff2'); }
+
+:root {
+  --piedra: #E9EBE6;
+  --lamina: #F4F5F1;
+  --roca: #D3D8D0;
+  --basalto: #1E2630;
+  --pizarra: #56616C;
+  --veta: #D9A21B;
+  --oxido: #A8432A;
+  --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --texto: 'Archivo', system-ui, sans-serif;
+  --ancho: 68rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--piedra);
+  color: var(--basalto);
+  font: 400 1rem/1.5 var(--texto);
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; }
+
+:focus-visible { outline: 3px solid var(--veta); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- cabecera ---------- */
+
+.cabecera, main, .pie {
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding-inline: 1.25rem;
+}
+
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+
+.marca { display: inline-flex; flex-direction: column; text-decoration: none; }
+
+.marca-texto {
+  font: 800 1.875rem/1 var(--display);
+  letter-spacing: 0.01em;
+}
+
+.marca-veta { width: 100%; height: 0.5rem; margin-top: 0.2rem; }
+.marca-veta path { fill: none; stroke: var(--veta); stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+.actualizado { margin: 0; font-size: 0.8125rem; color: var(--pizarra); text-align: right; }
+
+/* ---------- resumen ---------- */
+
+.resumen { padding: 2.75rem 0 2rem; }
+
+.resumen h1 {
+  margin: 0;
+  max-width: 19ch;
+  font: 800 clamp(2.25rem, 7vw, 4.25rem)/1.02 var(--display);
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+}
+
+.bajada { margin: 1rem 0 0; max-width: 56ch; color: var(--pizarra); }
+
+/* ---------- filas ---------- */
+
+.filones { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--roca); }
+
+.filon {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "cabeza pago"
+    "bote   bote"
+    "datos  datos"
+    "unirse unirse";
+  gap: 0.875rem 1rem;
+  padding: 1.375rem 0;
+  border-top: 1px solid var(--roca);
+}
+
+.filon-cabeza { grid-area: cabeza; min-width: 0; }
+
+.filon-nombre { margin: 0; font: 600 1.125rem/1.25 var(--texto); overflow-wrap: anywhere; }
+
+.filon-origen { margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--pizarra); }
+
+.filon-pago { grid-area: pago; text-align: right; }
+
+.pago-cifra { display: block; font: 800 2.25rem/0.95 var(--display); }
+
+.pago-nota { display: block; margin-top: 0.25rem; font-size: 0.75rem; line-height: 1.3; color: var(--pizarra); max-width: 11rem; margin-left: auto; }
+
+.filon-bote { grid-area: bote; }
+
+.veta { height: 0.75rem; background: var(--roca); border-radius: 2px; overflow: hidden; }
+
+.veta-relleno {
+  display: block;
+  height: 100%;
+  width: var(--pct, 0%);
+  background: var(--veta);
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 28%, calc(100% - 4px) 52%, 100% 76%, calc(100% - 6px) 100%, 0 100%);
+  transform-origin: left center;
+  animation: aflorar 750ms cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.filon.poco .veta-relleno { background: var(--oxido); }
+
+@keyframes aflorar { from { transform: scaleX(0); } }
+
+.bote-texto { margin: 0.5rem 0 0; font-size: 0.875rem; }
+.bote-texto strong { font-weight: 700; }
+.bote-alerta { color: var(--oxido); font-weight: 600; }
+
+.filon-datos {
+  grid-area: datos;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem 1.25rem;
+  margin: 0;
+}
+
+.filon-datos div { min-width: 0; }
+.filon-datos dt { font-size: 0.75rem; color: var(--pizarra); }
+.filon-datos dd { margin: 0.1rem 0 0; font-size: 0.875rem; overflow-wrap: anywhere; }
+.filon-datos .ancho { grid-column: 1 / -1; }
+
+.filon-unirse {
+  grid-area: unirse;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.875rem;
+  padding: 0.75rem 1.125rem;
+  border-radius: 6px;
+  background: var(--basalto);
+  color: var(--piedra);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.filon-unirse:hover { background: #2D3947; }
+
+/* ---------- filtros ---------- */
+
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 0 1.25rem;
+}
+
+.filtros-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.panel-filtros {
+  display: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.panel-filtros.abierto { display: grid; }
+
+.boton-filtros {
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--basalto);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--basalto);
+  font: 600 0.9375rem var(--texto);
+  cursor: pointer;
+}
+
+.boton-filtros[aria-expanded="true"] { background: var(--basalto); color: var(--piedra); }
+
+.filtros[hidden] { display: none; }
+
+.campo { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+.campo > span { font-size: 0.75rem; color: var(--pizarra); }
+
+.campo input,
+.campo select {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #B9C0B6;
+  border-radius: 6px;
+  background: var(--lamina);
+  color: var(--basalto);
+  font: 400 0.9375rem/1.2 var(--texto);
+}
+
+.campo select {
+  appearance: none;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2356616C' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.75rem;
+}
+
+.campo input:focus-visible, .campo select:focus-visible { outline-offset: 0; border-color: var(--basalto); }
+
+.campo-buscar { grid-column: 1 / -1; }
+
+.campo-check {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.campo-check input { width: 1.125rem; height: 1.125rem; accent-color: var(--basalto); margin: 0; }
+
+.conteo { margin: 0 0 0.75rem; font-size: 0.875rem; color: var(--pizarra); }
+
+/* ---------- estados ---------- */
+
+.sin-resultados { padding: 2rem 0; border-top: 1px solid var(--roca); }
+.sin-resultados p { margin: 0 0 0.75rem; }
+.sin-resultados button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--basalto);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--basalto);
+  font: 600 0.9375rem var(--texto);
+  cursor: pointer;
+}
+
+/* ---------- pie ---------- */
+
+.pie { padding-block: 2rem 3rem; font-size: 0.8125rem; color: var(--pizarra); }
+.pie p { margin: 0 0 0.75rem; max-width: 64ch; }
+.pie a { color: var(--basalto); font-weight: 600; }
+
+/* ---------- escritorio ---------- */
+
+@media (min-width: 52rem) {
+  .cabecera, main, .pie { padding-inline: 2rem; }
+
+  .resumen { padding: 4rem 0 2.75rem; }
+
+  .filtros-fila { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); column-gap: 1rem; }
+  .filtros-fila .campo-buscar { grid-column: auto; }
+  .boton-filtros { display: none; }
+  .panel-filtros { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 1rem; }
+
+  .filon {
+    grid-template-columns: minmax(0, 2fr) 10rem minmax(0, 1.6fr) 14.5rem;
+    grid-template-areas:
+      "cabeza pago  bote  unirse"
+      "datos  datos datos unirse";
+    column-gap: 2rem;
+    row-gap: 0.75rem;
+    padding: 1.625rem 0.75rem;
+    margin-inline: -0.75rem;
+    border-radius: 4px;
+  }
+
+  .filon:hover { background: var(--lamina); }
+
+  .filon-bote { padding-top: 0.4rem; }
+
+  .filon-datos { grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); }
+  .filon-datos .ancho { grid-column: auto / span 2; }
+
+  .filon-unirse { align-self: start; white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .veta-relleno { animation: none; }
+}

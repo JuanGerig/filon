@@ -1,0 +1,7 @@
+activa,plataforma,nombre,anfitrion,enlace,cpm,moneda,presupuesto_total,presupuesto_gastado,participantes,nicho,redes,minimo_vistas,tope_por_clip,publicada,revisada,requisitos
+SI,Content Rewards,Clips de podcast de negocios (ejemplo),Agencia Ejemplo,https://contentrewards.com/c/discover/clipping,1,USD,10000,6400,180,Podcast,"TikTok, Instagram, YouTube",1000,150,2026-10-28,2026-11-09,Solo clips verticales con subtítulos
+SI,Content Rewards,Viajes con 100 € (ejemplo),Creador Ejemplo,https://contentrewards.com/c/discover/clipping,1.5,USD,2000,310,25,Lifestyle,"TikTok, Instagram",,,2026-11-07,2026-11-09,
+SI,ClipBoom,Lanzamiento musical (ejemplo),Sello Ejemplo,https://clipboom.io/,"0,60",EUR,1500,1320,95,Música,"TikTok, Instagram, YouTube",500,50,2026-10-15,2026-11-08,Usar el audio oficial
+SI,Clipia,Actualidad para Argentina (ejemplo),Medio Ejemplo,https://app.clipia.me/,0.8,USDT,95,35,1,Noticias,"TikTok, YouTube, Instagram, Facebook",,25,2026-11-05,2026-11-09,Solo clippers de Argentina
+SI,Content Rewards,Streamer de Kick (ejemplo),Streamer Ejemplo,https://contentrewards.com/c/discover/clipping,2,USD,5000,900,40,Streaming,"TikTok, YouTube",2000,200,2026-11-08,2026-11-09,
+NO,Content Rewards,Campaña cerrada (ejemplo),Agencia Ejemplo,https://contentrewards.com/c/discover/clipping,1,USD,1000,1000,60,Podcast,TikTok,,,2026-09-01,2026-11-01,No debe aparecer

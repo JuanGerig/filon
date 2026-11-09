@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Filón | Campañas de clipping en español</title>
+  <meta name="description" content="Todas las campañas de clipping en español que pagan por vistas, en una sola página: cuánto pagan por cada 1.000 vistas, cuánto queda en el bote y cómo unirte.">
+  <meta property="og:title" content="Filón | Campañas de clipping en español">
+  <meta property="og:description" content="Cuánto paga cada campaña por 1.000 vistas y cuánto queda en el bote, en una sola página.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#1E2630">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fuentes/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/archivo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <a class="marca" href="./" aria-label="Filón, inicio">
+      <span class="marca-texto">Filón</span>
+      <svg class="marca-veta" viewBox="0 0 120 10" aria-hidden="true" preserveAspectRatio="none">
+        <path d="M0 6 L14 3 L27 7 L41 2 L55 6 L68 4 L82 8 L96 3 L108 6 L120 4" />
+      </svg>
+    </a>
+    <p class="actualizado" id="actualizado"></p>
+  </header>
+
+  <main>
+    <section class="resumen" aria-live="polite">
+      <h1 id="titular">Cargando campañas…</h1>
+      <p class="bajada">Cuánto paga cada campaña por 1.000 vistas y cuánto queda en el bote. Siempre enlazamos a la campaña original.</p>
+    </section>
+
+    <form class="filtros" id="filtros" role="search" aria-label="Filtrar campañas" hidden>
+      <div class="filtros-fila">
+        <label class="campo campo-buscar">
+          <span>Buscar</span>
+          <input id="f-buscar" name="q" type="search" placeholder="Campaña, creador o nicho" autocomplete="off">
+        </label>
+        <label class="campo">
+          <span>Ordenar por</span>
+          <select id="f-orden" name="orden">
+            <option value="bote">Más dinero en el bote</option>
+            <option value="pago">Mayor pago por 1.000 vistas</option>
+            <option value="nuevas">Más recientes</option>
+          </select>
+        </label>
+        <button type="button" class="boton-filtros" id="boton-filtros" aria-expanded="false" aria-controls="panel-filtros">Filtros</button>
+      </div>
+      <div class="panel-filtros" id="panel-filtros">
+        <label class="campo">
+          <span>Plataforma</span>
+          <select id="f-plataforma" name="plataforma"><option value="">Todas</option></select>
+        </label>
+        <label class="campo">
+          <span>Red social</span>
+          <select id="f-red" name="red"><option value="">Todas</option></select>
+        </label>
+        <label class="campo">
+          <span>Nicho</span>
+          <select id="f-nicho" name="nicho"><option value="">Todos</option></select>
+        </label>
+        <label class="campo">
+          <span>Pago mínimo</span>
+          <select id="f-pago" name="pago">
+            <option value="">Cualquiera</option>
+            <option value="0.5">0,50 o más</option>
+            <option value="1">1,00 o más</option>
+            <option value="2">2,00 o más</option>
+          </select>
+        </label>
+        <label class="campo-check">
+          <input id="f-nuevas" name="nuevas" type="checkbox">
+          <span>Solo publicadas en las últimas 72 horas</span>
+        </label>
+      </div>
+    </form>
+
+    <p class="conteo" id="conteo" aria-live="polite"></p>
+    <ul class="filones" id="lista" aria-label="Campañas activas"></ul>
+    <div class="sin-resultados" id="sin-resultados" hidden>
+      <p>Ninguna campaña coincide con esos filtros.</p>
+      <button type="button" id="quitar-filtros">Quitar filtros</button>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <p id="pie-formulario" hidden>¿Tienes una campaña de clipping en español? <a id="enlace-formulario" target="_blank" rel="noopener">Publícala gratis en Filón</a>.</p>
+    <p>Filón reúne campañas de clipping en español publicadas en varias plataformas. Los datos se revisan a diario, pero cada plataforma tiene la última palabra: lee sus reglas antes de publicar.</p>
+    <p>Medimos visitas y clics de forma anónima para saber qué campañas interesan.</p>
+  </footer>
+
+  <template id="tpl-filon">
+    <li class="filon">
+      <div class="filon-cabeza">
+        <h2 class="filon-nombre"></h2>
+        <p class="filon-origen"></p>
+      </div>
+      <div class="filon-pago">
+        <span class="pago-cifra"></span>
+        <span class="pago-nota"></span>
+      </div>
+      <div class="filon-bote">
+        <div class="veta" role="img"><span class="veta-relleno"></span></div>
+        <p class="bote-texto"></p>
+      </div>
+      <dl class="filon-datos"></dl>
+      <a class="filon-unirse" target="_blank" rel="noopener"></a>
+    </li>
+  </template>
+
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
