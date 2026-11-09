@@ -63,7 +63,12 @@ async function leerAirtable(base, tabla, token) {
     url.searchParams.set('pageSize', '100');
     if (offset) url.searchParams.set('offset', offset);
     const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-    if (!res.ok) throw new Error(`Airtable "${tabla}" respondió ${res.status}: ${await res.text()}`);
+    if (!res.ok) {
+      const pista = res.status === 401
+        ? ` | El token recibido empieza por "${token.slice(0, 3)}" y tiene ${token.length} caracteres; uno de Airtable empieza por "pat" y suele tener 82. Revisa el secreto AIRTABLE_TOKEN.`
+        : '';
+      throw new Error(`Airtable "${tabla}" respondió ${res.status}: ${await res.text()}${pista}`);
+    }
     const json = await res.json();
     for (const r of json.records) {
       const obj = { _fila: r.id };
@@ -173,7 +178,7 @@ function prepararCampanas(filas, plataformas) {
 // ---------- ejecución ----------
 
 const config = JSON.parse(await readFile(path.join(RAIZ, 'config.json'), 'utf8'));
-const token = process.env.AIRTABLE_TOKEN;
+const token = (process.env.AIRTABLE_TOKEN || '').trim();
 let filasCamp, filasPlat;
 
 if (token && config.airtable_base) {
